@@ -1,0 +1,32 @@
+﻿services:
+  fundingsouq.assessment.api:
+    image: fundingsouq.assessment.api
+    build:
+      context: .
+      dockerfile: FundingSouq.Assessment.Api/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    environment:
+        ASPNETCORE_ENVIRONMENT: "Development"
+    volumes:
+        - ./.containers/fundingsouq.assessment.api/logs:/app/logs
+        - ./.containers/fundingsouq.assessment.api/data:/app/data
+  fundingsouq.assessment.database:
+    image: postgres:latest
+    container_name: fundingsouq.assessment.database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "fundingsouq_assessment"
+    volumes:
+      - ./.containers/fundingsouq.assessment.database/data:/var/lib/postgresql/data
+  
+  fundingsouq.assessment.redis:
+    image: redis:latest
+    restart: always
+    container_name: fundingsouq.assessment.redis
+    ports:
+      - "6379:6379"
