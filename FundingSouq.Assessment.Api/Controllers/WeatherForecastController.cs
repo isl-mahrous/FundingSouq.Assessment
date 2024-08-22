@@ -1,5 +1,7 @@
 using System.Text;
 using System.Text.Json;
+using FundingSouq.Assessment.Core.Entities;
+using FundingSouq.Assessment.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -37,6 +39,23 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
             
         cache.Set("WeatherForecast", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(result)), new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+        });
+        
+        return result;
+    }
+    
+    [HttpGet("countries")]
+    public IEnumerable<Country> GetCountries([FromServices] IDistributedCache cache,  [FromServices] AppDbContext context)
+    {
+        if(cache.Get("Countries") != null)
+        {
+            return JsonSerializer.Deserialize<IEnumerable<Country>>(cache.Get("Countries")) ?? Array.Empty<Country>();
+        }
+        var result = context.Countries.ToList();
+        
+        cache.Set("Countries", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(result)), new DistributedCacheEntryOptions
         {
             AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
         });
