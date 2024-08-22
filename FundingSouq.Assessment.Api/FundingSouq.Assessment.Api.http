@@ -1,6 +1,0 @@
-@FundingSouq.Assessment.Api_HostAddress = http://localhost:5257
-
-GET {{FundingSouq.Assessment.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
