@@ -1,5 +1,7 @@
 using System.Text;
 using System.Text.Json;
+using FluentValidation;
+using FundingSouq.Assessment.Core.Dtos.Common;
 using FundingSouq.Assessment.Core.Entities;
 using FundingSouq.Assessment.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Mvc;
@@ -61,5 +63,20 @@ public class WeatherForecastController : ControllerBase
         });
         
         return result;
+    }
+    
+    [HttpPost("test-registeration")]
+    public IActionResult TestRegisteration([FromBody] Client user, [FromServices] IServiceProvider serviceProvider)
+    {
+        // get validator for client
+        var validator = serviceProvider.GetRequiredService<IValidator<Client>>();
+        var res = validator.Validate(user);
+        if (!res.IsValid)
+        {
+            var error = new ValidationError(res.ToDictionary());
+            var result = Result.Failure(error);
+            return BadRequest(result);
+        }
+        return Ok(Result.Success());
     }
 }

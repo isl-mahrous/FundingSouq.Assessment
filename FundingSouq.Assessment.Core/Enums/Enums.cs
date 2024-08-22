@@ -32,3 +32,9 @@ public enum BankAccountType
     Joint = 9,
     Business = 10,
 }
+
+public enum SortDirection
+{
+    Ascending = 0,
+    Descending = 1
+}

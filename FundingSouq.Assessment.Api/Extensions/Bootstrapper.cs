@@ -1,7 +1,12 @@
+using System.Reflection;
+using FluentValidation;
 using FundingSouq.Assessment.Application.Services;
+using FundingSouq.Assessment.Application.Validators;
 using FundingSouq.Assessment.Core.Interfaces;
+using FundingSouq.Assessment.Core.Interfaces.Repositories;
 using FundingSouq.Assessment.Infrastructure.Contexts;
 using FundingSouq.Assessment.Infrastructure.Interceptors;
+using FundingSouq.Assessment.Infrastructure.Repositories;
 using FundingSouq.Assessment.Infrastructure.Seeder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -25,8 +30,11 @@ public static class Bootstrapper
         {
             options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
         });
-        
+
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+        
+        builder.Services.AddValidatorsFromAssembly(typeof(RegisterValidator).Assembly);
     }
     
     public static void ApplyMigrations(this IApplicationBuilder app)
