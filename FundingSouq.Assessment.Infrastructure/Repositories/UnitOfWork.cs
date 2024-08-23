@@ -42,6 +42,10 @@ public class UnitOfWork : IUnitOfWork
     public async Task BeginTransactionAsync(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
     {
         _transaction ??= await _dbContext.Database.BeginTransactionAsync(isolationLevel);
+    }    
+    public async Task BeginTransactionAsync(CancellationToken cancellationToken, IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+    {
+        _transaction ??= await _dbContext.Database.BeginTransactionAsync(isolationLevel, cancellationToken: cancellationToken);
     }
 
     public async Task CommitTransactionAsync()
@@ -51,6 +55,13 @@ public class UnitOfWork : IUnitOfWork
         
         await _transaction.CommitAsync();
     }
+    public async Task CommitTransactionAsync(CancellationToken cancellationToken)
+    {
+        if(_transaction is null)
+            throw new InvalidOperationException("Transaction has not been started");
+        
+        await _transaction.CommitAsync(cancellationToken);
+    }
 
     public async Task RollbackTransactionAsync()
     {
@@ -58,6 +69,14 @@ public class UnitOfWork : IUnitOfWork
             throw new InvalidOperationException("Transaction has not been started");
         
         await _transaction.RollbackAsync();
+    }
+
+    public async Task RollbackTransactionAsync(CancellationToken cancellationToken)
+    {
+        if(_transaction is null)
+            throw new InvalidOperationException("Transaction has not been started");
+        
+        await _transaction.RollbackAsync(cancellationToken);
     }
 
     public async Task SaveChangesAsync()

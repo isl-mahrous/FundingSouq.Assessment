@@ -4,17 +4,20 @@ public class Result
 {
     public bool IsSuccess { get; private set; }
     public Error Error { get; private set; }
-    public bool IsFailure => !IsSuccess;
 
     protected Result(bool isSuccess, Error error)
     {
-        if (isSuccess && error != null)
-            throw new InvalidOperationException();
-        if (!isSuccess && error == null)
-            throw new InvalidOperationException();
-
-        IsSuccess = isSuccess;
-        Error = error;
+        switch (isSuccess)
+        {
+            case true when error != null:
+                throw new InvalidOperationException("Cannot be successful and contain an error.");
+            case false when error == null:
+                throw new InvalidOperationException("Cannot be unsuccessful and not contain an error.");
+            default:
+                IsSuccess = isSuccess;
+                Error = error;
+                break;
+        }
     }
 
     public static Result Success()

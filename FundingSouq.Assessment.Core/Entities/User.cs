@@ -19,7 +19,7 @@ public abstract class User : BaseEntity
             new Claim(ClaimTypes.NameIdentifier, Id.ToString()),
             new Claim(ClaimTypes.Email, Email),
             new Claim(ClaimTypes.Name, $"{FirstName} {LastName}"),
-            new Claim("UserType", UserType.ToString())
+            new Claim("user_type", UserType.ToString())
         };
     }
 }
