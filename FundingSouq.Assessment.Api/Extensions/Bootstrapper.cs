@@ -23,7 +23,7 @@ namespace FundingSouq.Assessment.Api.Extensions;
 
 public static class Bootstrapper
 {
-    public static void RegisterApplicationServices(this WebApplicationBuilder builder)
+    public static void RegisterApplicationRepositories(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<ISaveChangesInterceptor, BaseEntityInterceptor>();
         builder.Services.AddDbContext<AppDbContext>((sp, options) =>
@@ -40,18 +40,21 @@ public static class Bootstrapper
         });
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
+    }
+
+    public static void RegisterApplicationServices(this WebApplicationBuilder builder)
+    {
         builder.Services.AddValidatorsFromAssembly(typeof(RegisterValidator).Assembly);
+
+        builder.Services.AddHttpContextAccessor();
 
         builder.Services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(RegisterHubUserCommand).Assembly);
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
-
-        builder.Services.AddHttpContextAccessor();
-
+        
         builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy(
@@ -79,9 +82,11 @@ public static class Bootstrapper
                         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtOptions:Key"]!))
                 };
             });
-        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        
         builder.Services.AddProblemDetails();
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddScoped<IJwtService, JwtService>();
+        builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
     }
 
     public static void ApplyMigrations(this IApplicationBuilder app)

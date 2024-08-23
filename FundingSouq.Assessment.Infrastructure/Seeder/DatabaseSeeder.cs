@@ -1,3 +1,4 @@
+using Bogus;
 using FundingSouq.Assessment.Core.Entities;
 using FundingSouq.Assessment.Core.Enums;
 using FundingSouq.Assessment.Core.Interfaces;
@@ -31,6 +32,9 @@ public class DatabaseSeeder
 
             // Seed Super Admin User
             await SeedSuperAdmin();
+
+            // Seed Clients
+            await SeedClients();
 
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
@@ -108,6 +112,48 @@ public class DatabaseSeeder
             UserType = UserType.HubUser
         };
         _context.Users.Add(superAdmin);
+        await _context.SaveChangesAsync();
+    }
+
+    private async Task SeedClients()
+    {
+        if (await _context.Clients.AnyAsync()) return;
+
+        // setup bogus to generate random clients
+
+        Randomizer.Seed = new Random(8675309);
+
+        var addressId = 1;
+        var addresses = new Faker<Address>()
+            .RuleFor(a => a.Id, _ => addressId++)
+            .RuleFor(a => a.Street, f => f.Address.StreetAddress())
+            .RuleFor(a => a.CityId, _ => 1)
+            .RuleFor(a => a.CountryId, _ => 1)
+            .RuleFor(a => a.ZipCode, f => f.Address.ZipCode());
+
+
+        var accountId = 1;
+        var accounts = new Faker<Account>()
+            .RuleFor(a => a.Id, _ => accountId++)
+            .RuleFor(a => a.AccountNumber, f => f.Finance.Account())
+            .RuleFor(a => a.AccountType, f => f.PickRandom<BankAccountType>())
+            .RuleFor(a => a.Balance, f => f.Finance.Amount());
+
+
+        var clients = new Faker<Client>()
+            .RuleFor(c => c.FirstName, f => f.Person.FirstName)
+            .RuleFor(c => c.LastName, f => f.Person.LastName)
+            .RuleFor(c => c.Email, f => f.Internet.Email())
+            .RuleFor(c => c.MobileNumber, f => f.Phone.PhoneNumber())
+            .RuleFor(c => c.PasswordHash, _ => _passwordHasher.Hash("client@123"))
+            .RuleFor(c => c.UserType, _ => UserType.Client)
+            .RuleFor(c => c.PersonalId, f => f.Random.ReplaceNumbers("###########"))
+            .RuleFor(c => c.ProfilePhoto, f => f.Image.PlaceholderUrl(500, 500, "Random Person"))
+            .RuleFor(c => c.Gender, f => f.PickRandom<Gender>())
+            .RuleFor(c => c.Addresses, _ => addresses.Generate(1))
+            .RuleFor(c => c.Accounts, _ => accounts.Generate(1));
+
+        _context.Clients.AddRange(clients.Generate(100));
         await _context.SaveChangesAsync();
     }
 }

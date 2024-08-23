@@ -33,7 +33,6 @@ public class RegisterCommandHandler : IRequestHandler<RegisterHubUserCommand, Re
 
     public async Task<Result<HubUserLoginDto>> Handle(RegisterHubUserCommand request, CancellationToken cancellationToken)
     {
-        throw new Exception("Testing Exception");
         var emailExists = await _unitOfWork.Users.ExistsAsync(i => i.Email == request.Email);
 
         if (emailExists)

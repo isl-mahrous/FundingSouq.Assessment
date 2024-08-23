@@ -21,7 +21,7 @@ public class UnitOfWork : IUnitOfWork
     // Repositories
     public IRepository<User> Users => GetRepository<User>();
     public IRepository<HubUser> HubUsers => GetRepository<HubUser>();
-    public IRepository<Client> Clients => GetRepository<Client>();
+    public IClientRepository Clients => GetClientRepository();
     public IRepository<Address> Addresses => GetRepository<Address>();
     public IRepository<Account> Accounts => GetRepository<Account>();
     public IRepository<Country> Countries => GetRepository<Country>();
@@ -36,6 +36,16 @@ public class UnitOfWork : IUnitOfWork
 
         var repository = new Repository<TEntity>(_dbContext);
         _repositories.Add(typeof(TEntity), repository);
+        return repository;
+    }
+    
+    private IClientRepository GetClientRepository()
+    {
+        if (_repositories.ContainsKey(typeof(Client)))
+            return (IClientRepository) _repositories[typeof(Client)];
+
+        var repository = new ClientRepository(_dbContext);
+        _repositories.Add(typeof(Client), repository);
         return repository;
     }
     

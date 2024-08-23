@@ -11,37 +11,37 @@ namespace FundingSouq.Assessment.Infrastructure.Repositories;
 
 internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
-    private readonly AppDbContext _dbContext;
+    protected readonly AppDbContext DbContext;
 
     public Repository(AppDbContext dbContext)
     {
-        _dbContext = dbContext;
+        DbContext = dbContext;
     }
 
     public void Add(TEntity entity)
     {
-        _dbContext.Set<TEntity>().Add(entity);
+        DbContext.Set<TEntity>().Add(entity);
     }
 
     public void AddRange(IEnumerable<TEntity> entities)
     {
-        _dbContext.Set<TEntity>().AddRange(entities);
+        DbContext.Set<TEntity>().AddRange(entities);
     }
 
     public void Update(TEntity entity)
     {
-        _dbContext.Set<TEntity>().Update(entity);
+        DbContext.Set<TEntity>().Update(entity);
     }
 
     public void UpdateRange(IEnumerable<TEntity> entities)
     {
-        _dbContext.Set<TEntity>().UpdateRange(entities);
+        DbContext.Set<TEntity>().UpdateRange(entities);
     }
 
     public async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> predicate = null,
         params Expression<Func<TEntity, object>>[] includes)
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         if (predicate is not null) query = query.Where(predicate);
 
@@ -56,7 +56,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
     public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null,
         params Expression<Func<TEntity, object>>[] includes)
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         if (predicate is not null) query = query.Where(predicate);
 
@@ -77,7 +77,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
         params Expression<Func<TEntity, object>>[] includes
     )
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         foreach (var include in includes)
         {
@@ -102,7 +102,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
 
     public async Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         foreach (var include in includes)
         {
@@ -115,12 +115,12 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
     public IQueryable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> predicate = null,
         params Expression<Func<TEntity, object>>[] includes)
     {
-        return _dbContext.Set<TEntity>().AsQueryable();
+        return DbContext.Set<TEntity>().AsQueryable();
     }
 
     public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate = null)
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         if (predicate is not null) query = query.Where(predicate);
 
@@ -129,7 +129,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
 
     public async Task ExecuteDeleteAsync(Expression<Func<TEntity, bool>> predicate = null)
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         if (predicate is not null) query = query.Where(predicate);
 
@@ -138,17 +138,17 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
 
     public void DeleteRange(IEnumerable<TEntity> entities)
     {
-        _dbContext.Set<TEntity>().RemoveRange(entities);
+        DbContext.Set<TEntity>().RemoveRange(entities);
     }
 
     public void Delete(TEntity entity)
     {
-        _dbContext.Set<TEntity>().Remove(entity);
+        DbContext.Set<TEntity>().Remove(entity);
     }
 
     public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
     {
-        var query = _dbContext.Set<TEntity>().AsQueryable();
+        var query = DbContext.Set<TEntity>().AsQueryable();
 
         if (predicate is not null) query = query.Where(predicate);
 

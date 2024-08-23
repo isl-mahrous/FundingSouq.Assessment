@@ -1,0 +1,30 @@
+using FundingSouq.Assessment.Api.Infrastructure;
+using FundingSouq.Assessment.Application.Queries;
+using FundingSouq.Assessment.Core.Dtos;
+using FundingSouq.Assessment.Core.Dtos.Common;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FundingSouq.Assessment.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class HomeController : FundingSouqControllerBase
+{
+    private readonly ISender _sender;
+
+    public HomeController(ISender sender)
+    {
+        _sender = sender;
+    }
+
+    [HttpGet("countries")]
+    [ProducesResponseType(typeof(List<CountryDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetCountries(string searchKey)
+    {
+        var result = await _sender.Send(new CountriesQuery { SearchKey = searchKey });
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+}

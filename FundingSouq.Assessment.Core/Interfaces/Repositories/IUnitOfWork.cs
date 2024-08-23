@@ -12,7 +12,7 @@ public interface IUnitOfWork : IAsyncDisposable, IDisposable
     Task SaveChangesAsync(CancellationToken token);
     IRepository<User> Users { get; }
     IRepository<HubUser> HubUsers { get; }
-    IRepository<Client> Clients { get; }
+    IClientRepository Clients { get; }
     IRepository<Address> Addresses { get; }
     IRepository<Account> Accounts { get; }
     IRepository<Country> Countries { get; }
