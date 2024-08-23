@@ -91,7 +91,7 @@ public class DatabaseSeeder
 
         var clientsSearchPage = new HubPage
         {
-            Key = "clients-search"
+            Key = "/api/clients/paged"
         };
         _context.HubPages.Add(clientsSearchPage);
         await _context.SaveChangesAsync();
