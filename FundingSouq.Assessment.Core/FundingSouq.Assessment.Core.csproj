@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="LinqKit.Core" Version="1.2.5" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+      <PackageReference Include="RedLock.net" Version="2.3.2" />
     </ItemGroup>
 
 </Project>

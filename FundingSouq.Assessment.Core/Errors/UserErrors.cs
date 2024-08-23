@@ -9,4 +9,5 @@ public static class UserErrors
     public static readonly Error InvalidEmail = new Error("INVALID_EMAIL", "Invalid email.");
     public static readonly Error EmailInUse = new Error("EMAIL_IN_USE", "Email is already in use.");
     public static readonly Error InvalidToken = new Error("INVALID_TOKEN", "Invalid token.");
+    public static readonly Error FailedToAcquireLock = new Error("ACQUIRING_LOCK_FAILED", "Failed to acquire lock. Please try again later.");
 }

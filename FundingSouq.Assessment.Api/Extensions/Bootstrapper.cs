@@ -18,6 +18,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using RedLockNet;
+using RedLockNet.SERedis;
+using RedLockNet.SERedis.Configuration;
+using StackExchange.Redis;
 
 namespace FundingSouq.Assessment.Api.Extensions;
 
@@ -37,6 +41,20 @@ public static class Bootstrapper
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+        });
+        
+        // Configure Redis Connection and RedLock Factory
+        builder.Services.AddSingleton<IDistributedLockFactory>(sp =>
+        {
+            var redisConnectionMultiplexer = ConnectionMultiplexer
+                .Connect(builder.Configuration.GetConnectionString("RedisConnection")!);
+    
+            var redlockMultiplexer = new List<RedLockMultiplexer>
+            {
+                new(redisConnectionMultiplexer)
+            };
+
+            return RedLockFactory.Create(redlockMultiplexer);
         });
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
