@@ -183,6 +183,9 @@ public static class Bootstrapper
             using var scope = app.ApplicationServices.CreateScope();
             using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
+            // Ensure the database is deleted if you want to start fresh
+            // dbContext.Database.EnsureDeleted();
+            
             // Apply any pending migrations
             dbContext.Database.Migrate();
 
