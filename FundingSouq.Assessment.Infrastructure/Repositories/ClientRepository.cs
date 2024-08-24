@@ -106,13 +106,14 @@ internal class ClientRepository : Repository<Client>, IClientRepository
     /// <returns>An expression that defines the sort key for the query.</returns>
     private Expression<Func<Client, object>> GetClientSortKey(string sortKey)
     {
-        return sortKey switch
+        var normalizedSortKey = sortKey.ToSnakeCase();
+        return normalizedSortKey switch
         {
             "email" => x => x.Email,
-            "firstName" => x => x.FirstName,
-            "lastName" => x => x.LastName,
-            "personalId" => x => x.PersonalId,
-            "mobileNumber" => x => x.MobileNumber,
+            "first_name" => x => x.FirstName,
+            "last_name" => x => x.LastName,
+            "personal_id" => x => x.PersonalId,
+            "mobile_number" => x => x.MobileNumber,
             _ => x => x.Id
         };
     }
