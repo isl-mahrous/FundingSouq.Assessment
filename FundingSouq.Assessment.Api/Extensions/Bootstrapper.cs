@@ -56,6 +56,14 @@ public static class Bootstrapper
 
             return RedLockFactory.Create(redlockMultiplexer);
         });
+        
+        builder.Services.AddOutputCache(options =>
+        {
+            options.AddBasePolicy(config => 
+                config.Expire(TimeSpan.FromSeconds(60))
+                );
+        });
+        
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
