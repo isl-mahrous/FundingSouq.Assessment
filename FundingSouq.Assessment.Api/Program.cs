@@ -48,7 +48,7 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 builder.RegisterApplicationServices();
-builder.RegisterApplicationRepositories();
+builder.RegisterApplicationInfrastructure();
 
 var app = builder.Build();
 

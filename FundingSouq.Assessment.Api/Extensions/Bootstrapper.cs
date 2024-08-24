@@ -27,7 +27,7 @@ namespace FundingSouq.Assessment.Api.Extensions;
 
 public static class Bootstrapper
 {
-    public static void RegisterApplicationRepositories(this WebApplicationBuilder builder)
+    public static void RegisterApplicationInfrastructure(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<ISaveChangesInterceptor, BaseEntityInterceptor>();
         builder.Services.AddDbContext<AppDbContext>((sp, options) =>
@@ -37,13 +37,30 @@ public static class Bootstrapper
                 .AddInterceptors(sp.GetServices<ISaveChangesInterceptor>())
                 .UseSnakeCaseNamingConvention();
         });
-
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
+        // Redis Cache
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+            options.InstanceName = "redis-cache";
         });
         
-        // Configure Redis Connection and RedLock Factory
+        // Output Cache
+        builder.Services.AddOutputCache(options =>
+        {
+            options.AddBasePolicy(config => 
+                config.Expire(TimeSpan.FromMinutes(5))
+            );
+        });
+        
+        builder.Services.AddStackExchangeRedisOutputCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+            options.InstanceName = "redis-output-cache";
+        });
+        
+        // Distributed Lock with Redis and RedLock
         builder.Services.AddSingleton<IDistributedLockFactory>(_ =>
         {
             var redisConnectionMultiplexer = ConnectionMultiplexer
@@ -56,17 +73,6 @@ public static class Bootstrapper
 
             return RedLockFactory.Create(redLockMultiplexer);
         });
-        
-        builder.Services.AddOutputCache(options =>
-        {
-            options.AddBasePolicy(config => 
-                config.Expire(TimeSpan.FromSeconds(60))
-                );
-        });
-        
-
-        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
     }
 
     public static void RegisterApplicationServices(this WebApplicationBuilder builder)
