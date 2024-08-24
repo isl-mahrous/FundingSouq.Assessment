@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using Polly;
 using RedLockNet;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
@@ -49,35 +50,35 @@ public static class Bootstrapper
 
         // Register UnitOfWork as a scoped service
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+
         // Configure Redis cache
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
             options.InstanceName = "redis-cache";
         });
-        
+
         // Configure output caching with a base expiration policy of 5 minutes
         builder.Services.AddOutputCache(options =>
         {
-            options.AddBasePolicy(config => 
+            options.AddBasePolicy(config =>
                 config.Expire(TimeSpan.FromMinutes(5))
             );
         });
-        
+
         // Configure Redis-based output cache
         builder.Services.AddStackExchangeRedisOutputCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
             options.InstanceName = "redis-output-cache";
         });
-        
+
         // Configure distributed locking using Redis and RedLock
         builder.Services.AddSingleton<IDistributedLockFactory>(_ =>
         {
             var redisConnectionMultiplexer = ConnectionMultiplexer
                 .Connect(builder.Configuration.GetConnectionString("RedisConnection")!);
-    
+
             var redLockMultiplexer = new List<RedLockMultiplexer>
             {
                 new(redisConnectionMultiplexer)
@@ -105,14 +106,14 @@ public static class Bootstrapper
             cfg.RegisterServicesFromAssembly(typeof(RegisterHubUserCommand).Assembly);
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
-        
+
         // Configure authorization policies for HubUser and Client roles
         builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy(
                 nameof(UserType.HubUser),
                 policy => policy.RequireClaim("user_type", nameof(UserType.HubUser)));
-            
+
             options.AddPolicy(
                 nameof(UserType.Client),
                 policy => policy.RequireClaim("user_type", nameof(UserType.Client)));
@@ -135,14 +136,14 @@ public static class Bootstrapper
                         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtOptions:Key"]!))
                 };
             });
-        
+
         // Bind the Globals configuration section to the Globals class
         builder.Services.Configure<Globals>(builder.Configuration.GetSection("Globals"));
-        
+
         // Register custom global exception handler
         builder.Services.AddProblemDetails();
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-        
+
         // Register application-specific services
         builder.Services.AddScoped<IJwtService, JwtService>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
@@ -155,14 +156,39 @@ public static class Bootstrapper
     /// <param name="app">The <see cref="IApplicationBuilder"/> used to configure the application pipeline.</param>
     public static void ApplyMigrations(this IApplicationBuilder app)
     {
-        using var scope = app.ApplicationServices.CreateScope();
-        using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        
-        // Apply any pending migrations
-        dbContext.Database.Migrate();
-        
-        // Seed the database with initial data
-        var seeder = new DatabaseSeeder(dbContext, scope.ServiceProvider.GetRequiredService<IPasswordHasher>());
-        seeder.Seed().Wait();
+        // Create a logger
+        var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
+
+        // Define the retry policy
+        var retryPolicy = Policy
+            .Handle<Exception>() // Handle any exception
+            .WaitAndRetry(10, retryAttempt =>
+            {
+                // Calculate the exponential backoff time, starting from 2 seconds
+                var timeToWait = TimeSpan.FromSeconds(Math.Pow(2, retryAttempt));
+                logger.LogWarning(
+                    "Retrying to apply migrations. Attempt {RetryAttempt}, waiting {TotalSeconds} seconds before retrying...",
+                    retryAttempt, timeToWait.TotalSeconds);
+
+                return timeToWait;
+            }, (exception, timeSpan, retryCount, context) =>
+            {
+                // Log the exception
+                logger.LogError(exception, "Exception during migration attempt {RetryCount}", retryCount);
+            });
+
+        // Execute the migration within the retry policy
+        retryPolicy.Execute(() =>
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            // Apply any pending migrations
+            dbContext.Database.Migrate();
+
+            // Seed the database with initial data
+            var seeder = new DatabaseSeeder(dbContext, scope.ServiceProvider.GetRequiredService<IPasswordHasher>());
+            seeder.Seed().Wait();
+        });
     }
 }
