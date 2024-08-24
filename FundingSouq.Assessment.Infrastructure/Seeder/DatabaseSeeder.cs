@@ -7,17 +7,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FundingSouq.Assessment.Infrastructure.Seeder;
 
+/// <summary>
+/// Seeds initial data into the database, including countries, cities, users, hub pages, and clients.
+/// </summary>
 public class DatabaseSeeder
 {
     private readonly AppDbContext _context;
     private readonly IPasswordHasher _passwordHasher;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DatabaseSeeder"/> class.
+    /// </summary>
+    /// <param name="context">The database context used for seeding.</param>
+    /// <param name="passwordHasher">The password hasher used to hash passwords.</param>
     public DatabaseSeeder(AppDbContext context, IPasswordHasher passwordHasher)
     {
         _context = context;
         _passwordHasher = passwordHasher;
     }
 
+    /// <summary>
+    /// Seeds the database with initial data.
+    /// </summary>
     public async Task Seed()
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
@@ -27,7 +38,7 @@ public class DatabaseSeeder
             // Seed Countries and Cities
             await SeedCountriesAndCities();
 
-            // Seed Hub Page
+            // Seed Hub Pages
             await SeedHubPage();
 
             // Seed Super Admin User
@@ -36,20 +47,27 @@ public class DatabaseSeeder
             // Seed Clients
             await SeedClients();
 
+            // Commit transaction if everything is successful
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
         }
         catch (Exception)
         {
+            // Rollback transaction if an error occurs
             await transaction.RollbackAsync();
             throw;
         }
     }
 
+    /// <summary>
+    /// Seeds countries and their respective cities into the database.
+    /// </summary>
     private async Task SeedCountriesAndCities()
     {
+        // Check if countries already exist
         if (await _context.Countries.AnyAsync()) return;
 
+        // Add countries
         var saudiArabia = new Country { Id = 1, Name = "Saudi Arabia", Code = "SA", PhonePrefix = "+966" };
         var uae = new Country { Id = 2, Name = "United Arab Emirates", Code = "AE", PhonePrefix = "+971" };
         var egypt = new Country { Id = 3, Name = "Egypt", Code = "EG", PhonePrefix = "+20" };
@@ -57,6 +75,7 @@ public class DatabaseSeeder
         _context.Countries.AddRange(saudiArabia, uae, egypt);
         await _context.SaveChangesAsync();
 
+        // Add cities for each country
         var saCities = new List<City>
         {
             new City { Name = "Riyadh", CountryId = saudiArabia.Id },
@@ -78,6 +97,7 @@ public class DatabaseSeeder
             new City { Name = "Giza", CountryId = egypt.Id },
         };
 
+        // Save cities to the database
         _context.Cities.AddRange(saCities);
         _context.Cities.AddRange(uaeCities);
         _context.Cities.AddRange(egyptCities);
@@ -85,6 +105,9 @@ public class DatabaseSeeder
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Seeds a default hub page into the database.
+    /// </summary>
     private async Task SeedHubPage()
     {
         if (await _context.HubPages.AnyAsync()) return;
@@ -97,6 +120,9 @@ public class DatabaseSeeder
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Seeds a super admin user into the database.
+    /// </summary>
     private async Task SeedSuperAdmin()
     {
         if (await _context.Users.AnyAsync(u => u.Email == "admin@fundingsouq.com")) return;
@@ -115,12 +141,14 @@ public class DatabaseSeeder
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Seeds random client data into the database using the Bogus library.
+    /// </summary>
     private async Task SeedClients()
     {
         if (await _context.Clients.AnyAsync()) return;
 
-        // setup bogus to generate random clients
-
+        // Setup Bogus to generate random clients
         Randomizer.Seed = new Random(8675309);
         
         var addresses = new Faker<Address>()
@@ -129,12 +157,10 @@ public class DatabaseSeeder
             .RuleFor(a => a.CountryId, _ => 1)
             .RuleFor(a => a.ZipCode, f => f.Address.ZipCode());
 
-
         var accounts = new Faker<Account>()
             .RuleFor(a => a.AccountNumber, f => f.Finance.Account())
             .RuleFor(a => a.AccountType, f => f.PickRandom<BankAccountType>())
             .RuleFor(a => a.Balance, f => f.Finance.Amount());
-
 
         var clients = new Faker<Client>()
             .RuleFor(c => c.FirstName, f => f.Person.FirstName)
@@ -149,6 +175,7 @@ public class DatabaseSeeder
             .RuleFor(c => c.Addresses, _ => addresses.Generate(1))
             .RuleFor(c => c.Accounts, _ => accounts.Generate(1));
 
+        // Add generated clients to the database
         _context.Clients.AddRange(clients.Generate(100));
         await _context.SaveChangesAsync();
     }

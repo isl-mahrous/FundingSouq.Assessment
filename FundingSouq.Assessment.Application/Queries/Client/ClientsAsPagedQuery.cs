@@ -1,75 +1,45 @@
-using FundingSouq.Assessment.Application.Commands;
 using FundingSouq.Assessment.Core.Dtos;
 using FundingSouq.Assessment.Core.Dtos.Common;
 using FundingSouq.Assessment.Core.Enums;
-using FundingSouq.Assessment.Core.Interfaces.Repositories;
-using Mapster;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace FundingSouq.Assessment.Application.Queries;
 
+/// <summary>
+/// Query to retrieve a paged list of clients with optional filtering and sorting.
+/// </summary>
+/// <remarks>
+/// The result of the query is encapsulated in a <see cref="Result{T}"/> object. Where T is a <see cref="PagedResult{T}"/> of <see cref="ClientDto"/>.
+/// </remarks>
 public class ClientsAsPagedQuery : IRequest<Result<PagedResult<ClientDto>>>
 {
+    /// <summary>
+    /// Gets or sets the ID of the user making the request.
+    /// </summary>
     public int UserId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the search key used to filter clients.
+    /// </summary>
     public string SearchKey { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the page number to retrieve.
+    /// </summary>
     public int Page { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the number of items per page.
+    /// </summary>
     public int PageSize { get; set; } = 10;
+
+    /// <summary>
+    /// Gets or sets the key by which to sort the clients.
+    /// </summary>
     public string SortKey { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the direction of sorting.
+    /// </summary>
     public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
-}
-
-public class ClientsAsPagedQueryHandler : IRequestHandler<ClientsAsPagedQuery, Result<PagedResult<ClientDto>>>
-{
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ISender _sender;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly ILogger<ClientsAsPagedQueryHandler> _logger;
-
-    public ClientsAsPagedQueryHandler(IUnitOfWork unitOfWork, ISender sender, IHttpContextAccessor httpContextAccessor,
-        ILogger<ClientsAsPagedQueryHandler> logger)
-    {
-        _unitOfWork = unitOfWork;
-        _sender = sender;
-        _httpContextAccessor = httpContextAccessor;
-        _logger = logger;
-    }
-
-    public async Task<Result<PagedResult<ClientDto>>> Handle(ClientsAsPagedQuery request,
-        CancellationToken cancellationToken)
-    {
-        var pagingPayload = request.Adapt<PagingPayload>();
-        var clients = await _unitOfWork.Clients.GetClientsAsPagedAsync(pagingPayload);
-
-        if (_httpContextAccessor.HttpContext != null)
-        {
-            var route = _httpContextAccessor.HttpContext.Request.Path.Value;
-            var searchQuery = GetSearchQuery(pagingPayload);
-
-            var saveSearchCommand = new SaveSearchHistoryCommand
-            {
-                HubUserId = request.UserId,
-                HubPageKey = route,
-                SearchQuery = searchQuery,
-                SearchDate = DateTime.UtcNow
-            };
-
-            var result = await _sender.Send(saveSearchCommand, cancellationToken);
-            if (!result.IsSuccess)
-            {
-                _logger.LogError("Failed to save search history for user {UserId}. Error: {Message}", request.UserId,
-                    result.Error.Message);
-            }
-        }
-
-        return clients;
-    }
-
-    private string GetSearchQuery(PagingPayload payload)
-    {
-        
-        return $"page={payload.Page}&pageSize={payload.PageSize}&sortKey={payload.SortKey}" +
-               $"&sortDirection={(int)payload.SortDirection}&searchKey={payload.SearchKey}";
-    }
 }

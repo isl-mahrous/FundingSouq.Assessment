@@ -23,6 +23,8 @@ public class JwtService : IJwtService
         _audience = configuration["JwtOptions:Audience"];
         _tokenLifeTime = TimeSpan.FromHours(int.Parse(configuration["JwtOptions:LifeTimeInHours"]!));
     }
+
+    /// <inheritdoc />
     public JwtResultDto GenerateToken(List<Claim> claims)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -30,15 +32,15 @@ public class JwtService : IJwtService
 
         var claimSubject = new ClaimsIdentity();
 
-        // Basic Claims
+        // Add basic claims: JTI and IAT
         claimSubject.AddClaims(new List<Claim>
         {
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new(JwtRegisteredClaimNames.Iat, DateTime.Now.ToUniversalTime().ToString(CultureInfo.CurrentCulture))
+            new(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.CurrentCulture))
         });
 
-        // Custom Claims like roles and permissions
-        if (claims is not null && claims.Count != 0)
+        // Add custom claims if provided
+        if (claims is not null && claims.Count > 0)
         {
             claimSubject.AddClaims(claims);
         }
@@ -51,7 +53,6 @@ public class JwtService : IJwtService
             Audience = _audience,
             IssuedAt = DateTime.UtcNow,
             SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512),
-
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -64,12 +65,14 @@ public class JwtService : IJwtService
         };
     }
 
+    /// <inheritdoc />
     public List<Claim> GetClaimsFromToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         return tokenHandler.ReadJwtToken(token).Claims.ToList();
     }
 
+    /// <inheritdoc />
     public JwtValidationResultDto ValidateJwt(string jwtString)
     {
         var validationResult = new JwtValidationResultDto();
@@ -85,9 +88,9 @@ public class JwtService : IJwtService
                 ValidIssuer = _issuer,
                 ValidAudience = _audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey)),
-                
             };
 
+            // Validate the token and retrieve claims
             var claimsPrincipal = tokenHandler.ValidateToken(jwtString, validationParameters, out var validatedToken);
             validationResult.IsValid = true;
             validationResult.IsExpired = validatedToken.ValidTo < DateTime.UtcNow;
@@ -96,10 +99,10 @@ public class JwtService : IJwtService
         }
         catch (SecurityTokenException)
         {
-            // Token validation failed
+            // Handle validation failure
             validationResult.IsValid = false;
-            validationResult.IsExpired = false; // Not applicable since the token is not valid
-            validationResult.Claims = null; // No claims to retrieve
+            validationResult.IsExpired = false;
+            validationResult.Claims = null;
         }
 
         return validationResult;

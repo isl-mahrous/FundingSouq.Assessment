@@ -5,123 +5,118 @@ using FundingSouq.Assessment.Core.Enums;
 
 namespace FundingSouq.Assessment.Core.Interfaces.Repositories;
 
+/// <summary>
+/// Defines a generic repository interface for common data access operations.
+/// </summary>
+/// <typeparam name="TEntity">The entity type.</typeparam>
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     /// <summary>
-    /// This lets you add an entity locally, without having to hit the database, and then commiting your update
-    /// by calling SaveChangesAsync() and CommitTransactionAsync()
+    /// Adds an entity to the context without saving it to the database.
     /// </summary>
-    /// <param name="entity">The entity object you need to update</param>
-    /// <typeparam name="TEntity">Entity type</typeparam>
+    /// <param name="entity">The entity to add.</param>
     void Add(TEntity entity);
 
     /// <summary>
-    /// Exposes AddRange method of the DbContext, without hitting the database, similar to Add
+    /// Adds a range of entities to the context without saving them to the database.
     /// </summary>
-    /// <param name="entities">List of entities to Add</param>
-    /// <typeparam name="TEntity">Entity Type</typeparam>
+    /// <param name="entities">The entities to add.</param>
     void AddRange(IEnumerable<TEntity> entities);
 
     /// <summary>
-    /// This lets you update an entity locally, without having to hit the database, and then commiting your update
-    /// by calling SaveChangesAsync() and CommitTransactionAsync()
+    /// Updates an entity in the context without saving it to the database.
     /// </summary>
-    /// <param name="entity">The entity object you need to update</param>
-    /// <typeparam name="TEntity">Entity type</typeparam>
+    /// <param name="entity">The entity to update.</param>
     void Update(TEntity entity);
 
     /// <summary>
-    /// Exposes UpdateRange method of the DbContext, without hitting the database, similar to Update
+    /// Updates a range of entities in the context without saving them to the database.
     /// </summary>
-    /// <param name="entities">List of entities to Update</param>
-    /// <typeparam name="TEntity">Entity Type</typeparam>
+    /// <param name="entities">The entities to update.</param>
     void UpdateRange(IEnumerable<TEntity> entities);
 
     /// <summary>
-    /// Get any TEntity based on the predicate provided and includes if any
+    /// Retrieves the first entity matching the specified predicate, including related entities.
     /// </summary>
-    /// <typeparam name="TEntity">The entity object you need to fetch</typeparam>
-    /// <returns>Entity type</returns>
+    /// <param name="predicate">The condition to filter the entities.</param>
+    /// <param name="includes">The related entities to include.</param>
+    /// <returns>The first entity that matches the predicate.</returns>
     Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> predicate = null,
         params Expression<Func<TEntity, object>>[] includes);
 
     /// <summary>
-    /// Get all TEntity matching the predicate provided and includes if any.
+    /// Retrieves all entities matching the specified predicate, including related entities.
     /// </summary>
-    /// <typeparam name="TEntity">The entity object you need to fetch</typeparam>
-    /// <returns>Entity type</returns>
+    /// <param name="predicate">The condition to filter the entities.</param>
+    /// <param name="includes">The related entities to include.</param>
+    /// <returns>A list of entities that match the predicate.</returns>
     Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null,
         params Expression<Func<TEntity, object>>[] includes);
 
     /// <summary>
-    /// Get all TEntity matching the predicate provided in a paged format.
+    /// Retrieves entities in a paged format, including related entities.
     /// </summary>
-    /// <param name="predicate">the predicate to filter the entities</param> 
-    /// <param name="orderBy">the order by expression</param>
-    /// <param name="sortDirection">the sort direction</param>
-    /// <param name="page">the page number</param>
-    /// <param name="pageSize">the page size</param>
-    /// <param name="includes"></param>
-    /// <returns name="PagedResult">Paged result of TEntity</returns>
+    /// <param name="predicate">The condition to filter the entities.</param>
+    /// <param name="orderBy">The expression to order the entities.</param>
+    /// <param name="sortDirection">The sort direction (ascending or descending).</param>
+    /// <param name="page">The page number.</param>
+    /// <param name="pageSize">The size of the page.</param>
+    /// <param name="includes">The related entities to include.</param>
+    /// <returns>A paged result of entities.</returns>
     Task<PagedResult<TEntity>> GetPagedAsync(
         Expression<Func<TEntity, bool>> predicate = null,
         Expression<Func<TEntity, object>> orderBy = null,
         SortDirection sortDirection = SortDirection.Ascending,
         int page = 1,
         int pageSize = 10,
-        params Expression<Func<TEntity, object>>[] includes
-        );
+        params Expression<Func<TEntity, object>>[] includes);
 
     /// <summary>
-    ///  Get TEntity by Id and includes if any
+    /// Retrieves an entity by its ID, including related entities.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="includes"></param>
-    /// <returns></returns>
+    /// <param name="id">The ID of the entity.</param>
+    /// <param name="includes">The related entities to include.</param>
+    /// <returns>The entity with the specified ID.</returns>
     Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
 
     /// <summary>
-    /// Get any TEntity as a queryable object based on the predicate provided and includes if any
+    /// Returns a queryable object of entities matching the specified predicate, including related entities.
     /// </summary>
-    /// <param name="predicate"></param>
-    /// <param name="includes"></param>
-    /// <returns></returns>
+    /// <param name="predicate">The condition to filter the entities.</param>
+    /// <param name="includes">The related entities to include.</param>
+    /// <returns>A queryable object of entities.</returns>
     IQueryable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> predicate = null,
         params Expression<Func<TEntity, object>>[] includes);
 
     /// <summary>
-    /// Check if any entity matching the predicate exists in the database
+    /// Checks if any entities matching the specified predicate exist in the database.
     /// </summary>
-    /// <typeparam name="TEntity">The entity object we need to check existence of</typeparam>
-    /// <returns>Entity type</returns>
+    /// <param name="predicate">The condition to filter the entities.</param>
+    /// <returns><c>true</c> if any entities exist that match the predicate; otherwise, <c>false</c>.</returns>
     Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate = null);
 
     /// <summary>
-    /// Runs an execute delete command that matches the specified predicate
+    /// Executes a delete command on entities matching the specified predicate.
     /// </summary>
-    /// <typeparam name="TEntity">The entity object we need to check existence of</typeparam>
-    /// <returns>Entity type</returns>
+    /// <param name="predicate">The condition to filter the entities for deletion.</param>
     Task ExecuteDeleteAsync(Expression<Func<TEntity, bool>> predicate = null);
 
-
     /// <summary>
-    /// Mark a list of entities as deleted
+    /// Marks a range of entities as deleted in the context.
     /// </summary>
-    /// <param name="entities">The entities required for delete</param>
-    /// <typeparam name="TEntity">Entity type</typeparam>
+    /// <param name="entities">The entities to delete.</param>
     void DeleteRange(IEnumerable<TEntity> entities);
 
     /// <summary>
-    /// Mark a single entity as deleted
+    /// Marks an entity as deleted in the context.
     /// </summary>
-    /// <param name="entity">The entity required for delete</param>
-    /// <typeparam name="TEntity">Entity type</typeparam>
+    /// <param name="entity">The entity to delete.</param>
     void Delete(TEntity entity);
 
     /// <summary>
-    /// Count the number of entities matching the predicate
+    /// Counts the number of entities matching the specified predicate.
     /// </summary>
-    /// <param name="predicate"></param>
-    /// <returns></returns>
+    /// <param name="predicate">The condition to filter the entities.</param>
+    /// <returns>The count of entities that match the predicate.</returns>
     Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null);
 }

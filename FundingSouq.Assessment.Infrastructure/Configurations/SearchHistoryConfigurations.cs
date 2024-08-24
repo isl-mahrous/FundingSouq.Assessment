@@ -8,17 +8,23 @@ public class SearchHistoryConfigurations : IEntityTypeConfiguration<SearchHistor
 {
     public void Configure(EntityTypeBuilder<SearchHistory> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Id); // Setting the primary key
         
         // Setting properties
-        builder.Property(x => x.SearchQuery).IsRequired();
+        builder.Property(x => x.SearchQuery)
+            .IsRequired(); // SearchQuery is required
         
-        // setting up relation
-        builder.HasOne(x=>x.HubUser).WithMany(x=>x.SearchHistory).HasForeignKey(x=>x.HubUserId);
-        builder.HasOne(x=>x.HubPage).WithMany(x=>x.SearchHistory).HasForeignKey(x=>x.HubPageId);
+        // Setting up relationships
+        builder.HasOne(x => x.HubUser)
+            .WithMany(x => x.SearchHistory)
+            .HasForeignKey(x => x.HubUserId); // One-to-many relationship with HubUser
         
-        // indexes to improve performance
-        builder.HasIndex(x=>x.HubUserId);
-        builder.HasIndex(x=>x.HubPageId);
+        builder.HasOne(x => x.HubPage)
+            .WithMany(x => x.SearchHistory)
+            .HasForeignKey(x => x.HubPageId); // One-to-many relationship with HubPage
+        
+        // Indexes to improve performance
+        builder.HasIndex(x => x.HubUserId); // Index on HubUserId for faster lookups
+        builder.HasIndex(x => x.HubPageId); // Index on HubPageId for faster lookups
     }
 }

@@ -9,25 +9,32 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        // setting up table per hierarchy mapping strategy for inheritance
+        // Use Table-Per-Hierarchy (TPH) mapping strategy for inheritance
         builder.UseTphMappingStrategy();
+
+        // Set discriminator column for UserType with specific values for derived classes
         builder.HasDiscriminator(x => x.UserType)
             .HasValue<HubUser>(UserType.HubUser)
             .HasValue<Client>(UserType.Client);
         
-        // Setting up case insensitive email column with utf8 collation to support case insensitive search
+        // Configure Email property to be case insensitive and use utf8 collation for case-insensitive search
         builder.Property(x => x.Email)
             .HasColumnType("citext")
-            .UseCollation("en_US.utf8");
+            .UseCollation("en_US.utf8")
+            .IsRequired()
+            .HasMaxLength(100); // Email is required and has a max length of 100 characters
         
-        // Setting properties
-        builder.Property(x=>x.Email).IsRequired().HasMaxLength(100);
-        builder.Property(x=>x.FirstName).IsRequired().HasMaxLength(60);
-        builder.Property(x=>x.LastName).IsRequired().HasMaxLength(60);
+        // Configure FirstName and LastName properties
+        builder.Property(x => x.FirstName)
+            .IsRequired()       // FirstName is required
+            .HasMaxLength(60);  // Max length of 60 characters
+
+        builder.Property(x => x.LastName)
+            .IsRequired()       // LastName is required
+            .HasMaxLength(60);  // Max length of 60 characters
         
-        // Indexes to improve performance
-        builder.HasIndex(x=>x.Email).IsUnique();
-        builder.HasIndex(x=>x.UserType);
-        
+        // Create indexes to improve query performance
+        builder.HasIndex(x => x.Email).IsUnique();  // Unique index on Email
+        builder.HasIndex(x => x.UserType);          // Index on UserType for faster lookups
     }
 }

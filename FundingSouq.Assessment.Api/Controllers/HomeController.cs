@@ -21,6 +21,13 @@ public class HomeController : FundingSouqControllerBase
         _sender = sender;
     }
 
+    /// <summary>
+    /// Retrieves a list of all countries.
+    /// </summary>
+    /// <returns>A list of countries.</returns>
+    /// <remarks>
+    /// This endpoint returns a cached list of all available countries.
+    /// </remarks>
     [HttpGet("countries")]
     [OutputCache]
     [ProducesResponseType(typeof(List<CountryDto>), StatusCodes.Status200OK)]
@@ -32,6 +39,14 @@ public class HomeController : FundingSouqControllerBase
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
 
+    /// <summary>
+    /// Retrieves the search history for the authenticated hub user.
+    /// </summary>
+    /// <param name="hubPageKey">Optional hub page key to filter search history.</param>
+    /// <returns>A list of search history records.</returns>
+    /// <remarks>
+    /// This endpoint returns the search history for the authenticated hub user, optionally filtered by a specific hub page.
+    /// </remarks>
     [HttpGet("search-history")]
     [Authorize(Policy = nameof(UserType.HubUser))]
     [ProducesResponseType(typeof(List<SearchHistoryDto>), StatusCodes.Status200OK)]
@@ -43,7 +58,14 @@ public class HomeController : FundingSouqControllerBase
             { HubUserId = GetUserId(), HubPageKey = hubPageKey });
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
-    
+
+    /// <summary>
+    /// Retrieves a list of hub pages.
+    /// </summary>
+    /// <returns>A list of hub pages.</returns>
+    /// <remarks>
+    /// This endpoint returns a list of all available hub pages for the authenticated hub user.
+    /// </remarks>
     [HttpGet("hub-pages")]
     [Authorize(Policy = nameof(UserType.HubUser))]
     [ProducesResponseType(typeof(List<HubPageDto>), StatusCodes.Status200OK)]

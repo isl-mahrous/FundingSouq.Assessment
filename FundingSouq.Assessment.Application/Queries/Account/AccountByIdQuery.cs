@@ -1,31 +1,19 @@
 using FundingSouq.Assessment.Core.Dtos;
 using FundingSouq.Assessment.Core.Dtos.Common;
-using FundingSouq.Assessment.Core.Errors;
-using FundingSouq.Assessment.Core.Interfaces.Repositories;
-using Mapster;
 using MediatR;
 
 namespace FundingSouq.Assessment.Application.Queries;
 
+/// <summary>
+/// Query to retrieve an account by its ID.
+/// </summary>
+/// <remarks>
+/// The result of the query is encapsulated in a <see cref="Result{T}"/> object. where T is an <see cref="AccountDto"/>.
+/// </remarks>
 public class AccountByIdQuery : IRequest<Result<AccountDto>>
 {
+    /// <summary>
+    /// Gets or sets the ID of the account to retrieve.
+    /// </summary>
     public int Id { get; set; }
-}
-
-public class AccountByIdQueryHandler : IRequestHandler<AccountByIdQuery, Result<AccountDto>>
-{
-    private readonly IUnitOfWork _unitOfWork;
-
-    public AccountByIdQueryHandler(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
-
-    public async Task<Result<AccountDto>> Handle(AccountByIdQuery request, CancellationToken cancellationToken)
-    {
-        var account = await _unitOfWork.Accounts.GetFirstAsync(a => a.Id == request.Id);
-        if (account == null) return AccountErrors.AccountNotFound;
-
-        return account.Adapt<AccountDto>();
-    }
 }

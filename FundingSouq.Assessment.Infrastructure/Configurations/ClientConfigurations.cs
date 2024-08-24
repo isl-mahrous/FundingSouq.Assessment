@@ -8,17 +8,26 @@ public class ClientConfigurations : IEntityTypeConfiguration<Client>
 {
     public void Configure(EntityTypeBuilder<Client> builder)
     {
+        // Setting properties with constraints
+        builder.Property(x => x.PersonalId)
+            .IsRequired()       // PersonalId is required
+            .HasMaxLength(11);  // Max length of 11 characters
+
+        builder.Property(x => x.MobileNumber)
+            .IsRequired()       // MobileNumber is required
+            .HasMaxLength(25);  // Max length of 25 characters
         
-        // Setting properties
-        builder.Property(x=>x.PersonalId).IsRequired().HasMaxLength(11);
-        builder.Property(x=>x.MobileNumber).IsRequired().HasMaxLength(25);
+        // Setting up relationships
+        builder.HasMany(x => x.Addresses)
+            .WithOne(x => x.Client)
+            .HasForeignKey(x => x.ClientId); // One-to-many relationship with Addresses
+
+        builder.HasMany(x => x.Accounts)
+            .WithOne(x => x.Client)
+            .HasForeignKey(x => x.ClientId); // One-to-many relationship with Accounts
         
-        // setting up relations
-        builder.HasMany(x=>x.Addresses).WithOne(x=>x.Client).HasForeignKey(x=>x.ClientId);
-        builder.HasMany(x=>x.Accounts).WithOne(x=>x.Client).HasForeignKey(x=>x.ClientId);
-        
-        // indexes to improve performance
-        builder.HasIndex(x=>x.PersonalId).IsUnique();
-        builder.HasIndex(x=>x.MobileNumber).IsUnique();
+        // Indexes to improve performance
+        builder.HasIndex(x => x.PersonalId).IsUnique();   // Unique index on PersonalId
+        builder.HasIndex(x => x.MobileNumber).IsUnique(); // Unique index on MobileNumber
     }
 }

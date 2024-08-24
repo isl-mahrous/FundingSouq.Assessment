@@ -1,4 +1,4 @@
-using FundingSouq.Assessment.Api.Extensions;
+using FundingSouq.Assessment.Api;
 using FundingSouq.Assessment.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.FileProviders;
@@ -7,19 +7,25 @@ using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(opt =>
+// Configure controllers and JSON settings
+builder.Services
+    .AddControllers(opt =>
     {
+        // Use kebab-case for routes
         opt.Conventions.Add(new RouteTokenTransformerConvention(new KebabParameterTransformer()));
     })
     .AddNewtonsoftJson(options =>
     {
+        // Handle reference loops by ignoring them and omit null values in JSON responses
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
     });
 
+// Register services for API exploration and Swagger documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    // Add security definition for Bearer token authentication
     c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme.
@@ -30,6 +36,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.ApiKey
     });
 
+    // Apply security requirement globally to all API endpoints
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -45,8 +52,11 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 
+    // Add operation filter to include security requirements in Swagger UI
     c.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
+// Register application-specific services and infrastructure
 builder.RegisterApplicationServices();
 builder.RegisterApplicationInfrastructure();
 
@@ -54,35 +64,46 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    // Enable Swagger in development environment
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "FundingSouq.Assessment.Api v1");
-        c.RoutePrefix = string.Empty;
+        c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
     });
-    
+
+    // Apply any pending migrations to the database during development
     app.ApplyMigrations();
 }
 
-
+// Enable HTTPS redirection
 app.UseHttpsRedirection();
+
+// Enable output caching for responses
 app.UseOutputCache();
 
 var filesDirectoryPath = Path.Combine(builder.Environment.ContentRootPath, "files");
 if (!Directory.Exists(filesDirectoryPath))
 {
+    // Ensure the files directory exists
     Directory.CreateDirectory(filesDirectoryPath);
 }
 
+// Serve static files from the /files path
 app.UseStaticFiles(new StaticFileOptions
 {
-    
     FileProvider = new PhysicalFileProvider(filesDirectoryPath),
     RequestPath = "/files"
 });
 
+// Configure authentication and authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Use a global exception handler
 app.UseExceptionHandler();
+
+// Map controller routes
 app.MapControllers();
+
 app.Run();

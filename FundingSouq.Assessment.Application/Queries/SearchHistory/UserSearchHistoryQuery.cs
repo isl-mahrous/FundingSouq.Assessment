@@ -1,49 +1,25 @@
 using FundingSouq.Assessment.Core.Dtos;
 using FundingSouq.Assessment.Core.Dtos.Common;
-using FundingSouq.Assessment.Core.Interfaces.Repositories;
 using MediatR;
 
 namespace FundingSouq.Assessment.Application.Queries;
 
+/// <summary>
+/// Query to retrieve the search history of a specific user for a specific HubPage.
+/// </summary>
+/// <remarks>
+/// The result of this query is encapsulated in a <c>Result&lt;List&lt;SearchHistoryDto&gt;&gt;</c> object.
+/// </remarks>
 public class UserSearchHistoryQuery : IRequest<Result<List<SearchHistoryDto>>>
 {
+    /// <summary>
+    /// The ID of the HubUser whose search history is being queried.
+    /// </summary>
     public int HubUserId { get; set; }
+    
+    /// <summary>
+    /// The key of the HubPage for which the search history is being queried. 
+    /// If null or empty, retrieves search history for all HubPages.
+    /// </summary>
     public string HubPageKey { get; set; }
-}
-
-public class UserSearchHistoryQueryHandler : IRequestHandler<UserSearchHistoryQuery, Result<List<SearchHistoryDto>>>
-{
-    private readonly IUnitOfWork _unitOfWork;
-
-    public UserSearchHistoryQueryHandler(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
-
-    public async Task<Result<List<SearchHistoryDto>>> Handle(UserSearchHistoryQuery request,
-        CancellationToken cancellationToken)
-    {
-        var searchHistoryList = await _unitOfWork.SearchHistories.GetAllAsync(
-            s => s.HubUserId == request.HubUserId &&
-                 (string.IsNullOrEmpty(request.HubPageKey) || s.HubPage.Key == request.HubPageKey),
-            includes: s => s.HubPage);
-
-        var result = searchHistoryList
-            .GroupBy(s => s.HubPage.Key)
-            .Select(history => new SearchHistoryDto
-            {
-                HubPageId = history.First().HubPage.Id,
-                HubPageKey = history.Key,
-                History = history
-                    .OrderByDescending(s => s.SearchDate)
-                    .Select(h => new HubPageHistoryDto
-                    {
-                        Id = h.Id,
-                        SearchQuery = h.SearchQuery,
-                        SearchDate = h.SearchDate
-                    }).ToList()
-            }).ToList();
-
-        return result;
-    }
 }

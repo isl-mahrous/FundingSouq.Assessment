@@ -1,17 +1,20 @@
-using System.Security.Claims;
-
 namespace FundingSouq.Assessment.Core.Dtos.Common;
 
+/// <summary>
+/// Represents the result of a JWT generation operation.
+/// </summary>
+/// <remarks>
+/// This class contains the generated JWT token and its unique identifier (JTI).
+/// </remarks>
 public class JwtResultDto
 {
+    /// <summary>
+    /// Gets or sets the generated JWT token.
+    /// </summary>
     public string Token { get; set; }
-    public string Jti { get; set; }
-}
 
-public class JwtValidationResultDto
-{
+    /// <summary>
+    /// Gets or sets the unique identifier for the JWT token (JTI).
+    /// </summary>
     public string Jti { get; set; }
-    public bool IsValid { get; set; }
-    public bool IsExpired { get; set; }
-    public List<Claim> Claims { get; set; }
 }

@@ -8,16 +8,22 @@ public class AccountConfigurations : IEntityTypeConfiguration<Account>
 {
     public void Configure(EntityTypeBuilder<Account> builder)
     {
+        // Set the primary key
         builder.HasKey(x => x.Id);
         
-        // Setting properties
-        builder.Property(x=>x.AccountNumber).IsRequired().HasMaxLength(25);
+        // Set property configurations
+        builder.Property(x => x.AccountNumber)
+            .IsRequired()       // Account number is required
+            .HasMaxLength(25);  // Maximum length of 25 characters
         
-        // setting up relations
-        builder.HasOne(x=>x.Client).WithMany(x=>x.Accounts).HasForeignKey(x=>x.ClientId);
+        // Configure relationships
+        builder.HasOne(x => x.Client)
+            .WithMany(x => x.Accounts)
+            .HasForeignKey(x => x.ClientId); // Set foreign key for Client
         
-        // indexes to improve performance
-        builder.HasIndex(x=>x.ClientId);
-        builder.HasIndex(x=>x.AccountNumber).IsUnique();
+        // Create indexes to improve query performance
+        builder.HasIndex(x => x.ClientId);           // Index on ClientId for faster lookups
+        builder.HasIndex(x => x.AccountNumber)       // Unique index on AccountNumber to enforce uniqueness
+            .IsUnique();
     }
 }
