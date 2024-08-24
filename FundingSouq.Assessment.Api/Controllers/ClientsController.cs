@@ -45,8 +45,19 @@ public class ClientsController : FundingSouqControllerBase
         });
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
+    
+    [HttpGet("{clientId}")]
+    [ProducesResponseType(typeof(ClientDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetClientById(int clientId)
+    {
+        var result = await _sender.Send(new ClientByIdQuery { ClientId = clientId });
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
 
     [HttpPost("create")]
+    [Authorize(Roles = nameof(HubUserRole.Admin))]
     [ProducesResponseType(typeof(ClientDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
@@ -54,5 +65,27 @@ public class ClientsController : FundingSouqControllerBase
     {
         var result = await _sender.Send(command);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+    
+    [HttpPut("update")]
+    [Authorize(Roles = nameof(HubUserRole.Admin))]
+    [ProducesResponseType(typeof(ClientDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateClient([FromForm] UpdateClientCommand command)
+    {
+        var result = await _sender.Send(command);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+    
+    [HttpDelete("delete/{clientId}")]
+    [Authorize(Roles = nameof(HubUserRole.Admin))]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteClient(int clientId)
+    {
+        var result = await _sender.Send(new DeleteClientCommand { ClientId = clientId });
+        return result.IsSuccess ? Ok("Client deleted successfully") : BadRequest(result.Error);
     }
 }

@@ -109,7 +109,7 @@ internal class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEn
             query = query.Include(include);
         }
 
-        return await query.SingleAsync(x => x.Id == id);
+        return await query.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public IQueryable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> predicate = null,
