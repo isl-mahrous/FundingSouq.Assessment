@@ -8,37 +8,40 @@
         <UserSecretsId>3c0e23c4-33df-44d2-9321-141a9a8c012a</UserSecretsId>
         <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     </PropertyGroup>
-
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OutputCaching.StackExchangeRedis" Version="8.0.8" />
+        <PackageReference Include="Microsoft.AspNetCore.OutputCaching.StackExchangeRedis" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FundingSouq.Assessment.Application\FundingSouq.Assessment.Application.csproj" />
-      <ProjectReference Include="..\FundingSouq.Assessment.Core\FundingSouq.Assessment.Core.csproj" />
-      <ProjectReference Include="..\FundingSouq.Assessment.Infrastructure\FundingSouq.Assessment.Infrastructure.csproj" />
+        <ProjectReference Include="..\FundingSouq.Assessment.Application\FundingSouq.Assessment.Application.csproj"/>
+        <ProjectReference Include="..\FundingSouq.Assessment.Core\FundingSouq.Assessment.Core.csproj"/>
+        <ProjectReference Include="..\FundingSouq.Assessment.Infrastructure\FundingSouq.Assessment.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="..\.dockerignore" />
-      <None Remove="files\1724500675_profile-pic (1).png" />
+        <None Remove="..\.dockerignore"/>
+        <None Remove="files\1724500675_profile-pic (1).png"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="files\" />
+        <Folder Include="files\"/>
     </ItemGroup>
 
 </Project>

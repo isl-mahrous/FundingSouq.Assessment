@@ -1,3 +1,4 @@
+using System.Reflection;
 using FundingSouq.Assessment.Api;
 using FundingSouq.Assessment.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -25,6 +26,11 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    // Include XML comments in Swagger documentation
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+    
     // Add security definition for Bearer token authentication
     c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
@@ -68,7 +74,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "FundingSouq.Assessment.Api v1");
+        c.DocumentTitle = "FundingSouq.Assessment.Api Documentation";
         c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
     });
 
