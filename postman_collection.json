@@ -1,0 +1,4265 @@
+{
+	"info": {
+		"_postman_id": "d34c5a2e-b6a4-43cf-bc26-8f17d19a48c2",
+		"name": "Funding Souq Assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30829199"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "accounts",
+					"item": [
+						{
+							"name": "{accountId}",
+							"item": [
+								{
+									"name": "Retrieves account details by account ID.",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/accounts/:accountId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												":accountId"
+											],
+											"variable": [
+												{
+													"key": "accountId",
+													"value": "<integer>",
+													"description": "(Required) The ID of the account to retrieve."
+												}
+											]
+										},
+										"description": "This API endpoint retrieves details of an account based on the provided account ID.\r\nIt is accessible to authorized users and returns the account details if the account exists."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "//api/accounts/:accountId",
+													"path": [
+														"",
+														"api",
+														"accounts",
+														":accountId"
+													],
+													"variable": [
+														{
+															"key": "accountId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<integer>\",\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7,\n  \"accountTypeStr\": \"<string>\",\n  \"balance\": \"<double>\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/:accountId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														":accountId"
+													],
+													"variable": [
+														{
+															"key": "accountId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/:accountId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														":accountId"
+													],
+													"variable": [
+														{
+															"key": "accountId"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/:accountId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														":accountId"
+													],
+													"variable": [
+														{
+															"key": "accountId"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/:accountId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														":accountId"
+													],
+													"variable": [
+														{
+															"key": "accountId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "create",
+							"item": [
+								{
+									"name": "Creates a new account for a client.",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 9\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/accounts/create",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"create"
+											]
+										},
+										"description": "This API endpoint allows an admin to create a new account for a client.\r\nThe request must include the account number, and account type."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 9\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "//api/accounts/create",
+													"path": [
+														"",
+														"api",
+														"accounts",
+														"create"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<integer>\",\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7,\n  \"accountTypeStr\": \"<string>\",\n  \"balance\": \"<double>\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 9\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"create"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 9\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"create"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 9\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"create"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 9\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"create"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "update",
+							"item": [
+								{
+									"name": "Updates an existing client account.",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/accounts/update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"accounts",
+												"update"
+											]
+										},
+										"description": "This API endpoint allows an admin to update an existing client account.\r\nThe request must include the account ID, new account number, and account type."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "//api/accounts/update",
+													"path": [
+														"",
+														"api",
+														"accounts",
+														"update"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<integer>\",\n  \"clientId\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7,\n  \"accountTypeStr\": \"<string>\",\n  \"balance\": \"<double>\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"update"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"update"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"update"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"id\": \"<integer>\",\n  \"accountNumber\": \"<string>\",\n  \"accountType\": 7\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"update"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"item": [
+								{
+									"name": "{accountId}",
+									"item": [
+										{
+											"name": "Deletes an existing client account by ID.",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/accounts/delete/:accountId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"accounts",
+														"delete",
+														":accountId"
+													],
+													"variable": [
+														{
+															"key": "accountId",
+															"value": "<integer>",
+															"description": "(Required) The ID of the account to delete."
+														}
+													]
+												},
+												"description": "This API endpoint allows an admin to delete a client account based on the provided account ID.\r\nIf the account is the only one associated with the client, it cannot be deleted."
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "//api/accounts/delete/:accountId",
+															"path": [
+																"",
+																"api",
+																"accounts",
+																"delete",
+																":accountId"
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "<string>"
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/accounts/delete/:accountId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"accounts",
+																"delete",
+																":accountId"
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+												},
+												{
+													"name": "Unauthorized",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/accounts/delete/:accountId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"accounts",
+																"delete",
+																":accountId"
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												},
+												{
+													"name": "Forbidden",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/accounts/delete/:accountId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"accounts",
+																"delete",
+																":accountId"
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												},
+												{
+													"name": "Server Error",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/accounts/delete/:accountId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"accounts",
+																"delete",
+																":accountId"
+															],
+															"variable": [
+																{
+																	"key": "accountId"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "clients",
+					"item": [
+						{
+							"name": "paged",
+							"item": [
+								{
+									"name": "Retrieves a paged list of clients.",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/clients/paged?searchKey=&sortKey=email&sortDirection=0&page=1&pageSize=10",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"clients",
+												"paged"
+											],
+											"query": [
+												{
+													"key": "searchKey",
+													"value": "",
+													"description": "Optional search term to filter clients."
+												},
+												{
+													"key": "sortKey",
+													"value": "email",
+													"description": "Field by which to sort the clients."
+												},
+												{
+													"key": "sortDirection",
+													"value": "0",
+													"description": "Direction to sort the clients. Ascending = 0 and Descending = 1"
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"description": "Page number to retrieve."
+												},
+												{
+													"key": "pageSize",
+													"value": "10",
+													"description": "Number of clients per page."
+												}
+											]
+										},
+										"description": "This endpoint retrieves a paged list of clients based on search, sorting, and paging parameters.\r\nIt is intended for use by authorized hub users."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "//api/clients/paged?searchKey=&sortKey=id&sortDirection=1&page=1&pageSize=10",
+													"path": [
+														"",
+														"api",
+														"clients",
+														"paged"
+													],
+													"query": [
+														{
+															"key": "searchKey",
+															"value": "",
+															"description": "Optional search term to filter clients."
+														},
+														{
+															"key": "sortKey",
+															"value": "id",
+															"description": "Field by which to sort the clients."
+														},
+														{
+															"key": "sortDirection",
+															"value": "1",
+															"description": "Direction to sort the clients. Ascending = 0 and Descending = 1"
+														},
+														{
+															"key": "page",
+															"value": "1",
+															"description": "Page number to retrieve."
+														},
+														{
+															"key": "pageSize",
+															"value": "10",
+															"description": "Number of clients per page."
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"personalId\": \"<string>\",\n      \"profilePhoto\": \"<string>\",\n      \"mobileNumber\": \"<string>\",\n      \"gender\": 1,\n      \"genderStr\": \"<string>\",\n      \"accounts\": [\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"accountNumber\": \"<string>\",\n          \"accountType\": 2,\n          \"accountTypeStr\": \"<string>\",\n          \"balance\": \"<double>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"accountNumber\": \"<string>\",\n          \"accountType\": 4,\n          \"accountTypeStr\": \"<string>\",\n          \"balance\": \"<double>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"countryId\": \"<integer>\",\n          \"countryName\": \"<string>\",\n          \"cityId\": \"<integer>\",\n          \"cityName\": \"<string>\",\n          \"street\": \"<string>\",\n          \"zipCode\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"countryId\": \"<integer>\",\n          \"countryName\": \"<string>\",\n          \"cityId\": \"<integer>\",\n          \"cityName\": \"<string>\",\n          \"street\": \"<string>\",\n          \"zipCode\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"personalId\": \"<string>\",\n      \"profilePhoto\": \"<string>\",\n      \"mobileNumber\": \"<string>\",\n      \"gender\": 1,\n      \"genderStr\": \"<string>\",\n      \"accounts\": [\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"accountNumber\": \"<string>\",\n          \"accountType\": 6,\n          \"accountTypeStr\": \"<string>\",\n          \"balance\": \"<double>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"accountNumber\": \"<string>\",\n          \"accountType\": 3,\n          \"accountTypeStr\": \"<string>\",\n          \"balance\": \"<double>\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"countryId\": \"<integer>\",\n          \"countryName\": \"<string>\",\n          \"cityId\": \"<integer>\",\n          \"cityName\": \"<string>\",\n          \"street\": \"<string>\",\n          \"zipCode\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"clientId\": \"<integer>\",\n          \"countryId\": \"<integer>\",\n          \"countryName\": \"<string>\",\n          \"cityId\": \"<integer>\",\n          \"cityName\": \"<string>\",\n          \"street\": \"<string>\",\n          \"zipCode\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalCount\": \"<integer>\",\n  \"totalPages\": \"<integer>\"\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/paged?searchKey=&sortKey=id&sortDirection=1&page=1&pageSize=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"paged"
+													],
+													"query": [
+														{
+															"key": "searchKey",
+															"value": "",
+															"description": "Optional search term to filter clients."
+														},
+														{
+															"key": "sortKey",
+															"value": "id",
+															"description": "Field by which to sort the clients."
+														},
+														{
+															"key": "sortDirection",
+															"value": "1",
+															"description": "Direction to sort the clients. Ascending = 0 and Descending = 1"
+														},
+														{
+															"key": "page",
+															"value": "1",
+															"description": "Page number to retrieve."
+														},
+														{
+															"key": "pageSize",
+															"value": "10",
+															"description": "Number of clients per page."
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/paged?searchKey=&sortKey=id&sortDirection=1&page=1&pageSize=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"paged"
+													],
+													"query": [
+														{
+															"key": "searchKey",
+															"value": "",
+															"description": "Optional search term to filter clients."
+														},
+														{
+															"key": "sortKey",
+															"value": "id",
+															"description": "Field by which to sort the clients."
+														},
+														{
+															"key": "sortDirection",
+															"value": "1",
+															"description": "Direction to sort the clients. Ascending = 0 and Descending = 1"
+														},
+														{
+															"key": "page",
+															"value": "1",
+															"description": "Page number to retrieve."
+														},
+														{
+															"key": "pageSize",
+															"value": "10",
+															"description": "Number of clients per page."
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/paged?searchKey=&sortKey=id&sortDirection=1&page=1&pageSize=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"paged"
+													],
+													"query": [
+														{
+															"key": "searchKey",
+															"value": "",
+															"description": "Optional search term to filter clients."
+														},
+														{
+															"key": "sortKey",
+															"value": "id",
+															"description": "Field by which to sort the clients."
+														},
+														{
+															"key": "sortDirection",
+															"value": "1",
+															"description": "Direction to sort the clients. Ascending = 0 and Descending = 1"
+														},
+														{
+															"key": "page",
+															"value": "1",
+															"description": "Page number to retrieve."
+														},
+														{
+															"key": "pageSize",
+															"value": "10",
+															"description": "Number of clients per page."
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/paged?searchKey=&sortKey=id&sortDirection=1&page=1&pageSize=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"paged"
+													],
+													"query": [
+														{
+															"key": "searchKey",
+															"value": "",
+															"description": "Optional search term to filter clients."
+														},
+														{
+															"key": "sortKey",
+															"value": "id",
+															"description": "Field by which to sort the clients."
+														},
+														{
+															"key": "sortDirection",
+															"value": "1",
+															"description": "Direction to sort the clients. Ascending = 0 and Descending = 1"
+														},
+														{
+															"key": "page",
+															"value": "1",
+															"description": "Page number to retrieve."
+														},
+														{
+															"key": "pageSize",
+															"value": "10",
+															"description": "Number of clients per page."
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "{clientId}",
+							"item": [
+								{
+									"name": "Retrieves details of a specific client by ID.",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/clients/:clientId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"clients",
+												":clientId"
+											],
+											"variable": [
+												{
+													"key": "clientId",
+													"value": "12",
+													"description": "(Required) The ID of the client to retrieve."
+												}
+											]
+										},
+										"description": "This endpoint retrieves details of a specific client based on the provided client ID.\r\nIt is accessible to authorized hub users."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "//api/clients/:clientId",
+													"path": [
+														"",
+														"api",
+														"clients",
+														":clientId"
+													],
+													"variable": [
+														{
+															"key": "clientId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"personalId\": \"<string>\",\n  \"profilePhoto\": \"<string>\",\n  \"mobileNumber\": \"<string>\",\n  \"gender\": 0,\n  \"genderStr\": \"<string>\",\n  \"accounts\": [\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"accountNumber\": \"<string>\",\n      \"accountType\": 5,\n      \"accountTypeStr\": \"<string>\",\n      \"balance\": \"<double>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"accountNumber\": \"<string>\",\n      \"accountType\": 5,\n      \"accountTypeStr\": \"<string>\",\n      \"balance\": \"<double>\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"countryId\": \"<integer>\",\n      \"countryName\": \"<string>\",\n      \"cityId\": \"<integer>\",\n      \"cityName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"countryId\": \"<integer>\",\n      \"countryName\": \"<string>\",\n      \"cityId\": \"<integer>\",\n      \"cityName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/:clientId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														":clientId"
+													],
+													"variable": [
+														{
+															"key": "clientId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/:clientId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														":clientId"
+													],
+													"variable": [
+														{
+															"key": "clientId"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/:clientId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														":clientId"
+													],
+													"variable": [
+														{
+															"key": "clientId"
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/:clientId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														":clientId"
+													],
+													"variable": [
+														{
+															"key": "clientId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "create",
+							"item": [
+								{
+									"name": "Creates a new client.",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "Email",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "FirstName",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "LastName",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "PersonalId",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "ProfilePhoto",
+													"type": "file",
+													"src": []
+												},
+												{
+													"key": "MobileNumber",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "Gender",
+													"value": "1",
+													"description": " (This can only be one of 0,1)",
+													"type": "text"
+												},
+												{
+													"key": "CountryId",
+													"value": "<integer>",
+													"type": "text"
+												},
+												{
+													"key": "CityId",
+													"value": "<integer>",
+													"type": "text"
+												},
+												{
+													"key": "Street",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "ZipCode",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "AccountNumber",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "AccountType",
+													"value": "0",
+													"description": " (This can only be one of 0,1,2,3,4,5,6,7,8,9,10)",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/clients/create",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"clients",
+												"create"
+											]
+										},
+										"description": "This endpoint allows an admin to create a new client.  \r\nThe request must include all necessary client information, including:\r\n<list type=\"bullet\"><item><description><b>Email</b>: The client's email address. Must be valid and unique.</description></item><item><description><b>FirstName</b>: The client's first name. Maximum length is 60 characters.</description></item><item><description><b>LastName</b>: The client's last name. Maximum length is 60 characters.</description></item><item><description><b>PersonalId</b>: The client's personal ID (e.g., national ID). Must be exactly 11 characters.</description></item><item><description><b>ProfilePhoto</b>: The client's profile photo. Must be a valid file.</description></item><item><description><b>MobileNumber</b>: The client's mobile number. Must be in international format (e.g., +971501234567) and unique.</description></item><item><description><b>Gender</b>: The client's gender. Accepted values are 0 for Male and 1 for Female.</description></item><item><description><b>CountryId</b>: The ID of the country where the client resides. Must be a valid country ID.</description></item><item><description><b>CityId</b>: The ID of the city where the client resides. Must be a valid city ID associated with the specified country.</description></item><item><description><b>Street</b>: The street address of the client. Cannot be empty.</description></item><item><description><b>ZipCode</b>: The zip code of the client's address. Cannot be empty.</description></item><item><description><b>AccountNumber</b>: The client's account number. Must be unique and cannot be empty.</description></item><item><description><b>AccountType</b>: The type of the client's account. Valid values are between 0 and 10.</description></item></list>"
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountType",
+															"value": "0",
+															"description": " (This can only be one of 0,1,2,3,4,5,6,7,8,9,10)",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "//api/clients/create",
+													"path": [
+														"",
+														"api",
+														"clients",
+														"create"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"personalId\": \"<string>\",\n  \"profilePhoto\": \"<string>\",\n  \"mobileNumber\": \"<string>\",\n  \"gender\": 1,\n  \"genderStr\": \"<string>\",\n  \"accounts\": [\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"accountNumber\": \"<string>\",\n      \"accountType\": 0,\n      \"accountTypeStr\": \"<string>\",\n      \"balance\": \"<double>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"accountNumber\": \"<string>\",\n      \"accountType\": 9,\n      \"accountTypeStr\": \"<string>\",\n      \"balance\": \"<double>\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"countryId\": \"<integer>\",\n      \"countryName\": \"<string>\",\n      \"cityId\": \"<integer>\",\n      \"cityName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"countryId\": \"<integer>\",\n      \"countryName\": \"<string>\",\n      \"cityId\": \"<integer>\",\n      \"cityName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountType",
+															"value": "0",
+															"description": " (This can only be one of 0,1,2,3,4,5,6,7,8,9,10)",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"create"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountType",
+															"value": "0",
+															"description": " (This can only be one of 0,1,2,3,4,5,6,7,8,9,10)",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"create"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountType",
+															"value": "0",
+															"description": " (This can only be one of 0,1,2,3,4,5,6,7,8,9,10)",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"create"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "AccountType",
+															"value": "0",
+															"description": " (This can only be one of 0,1,2,3,4,5,6,7,8,9,10)",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/create",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"create"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "update",
+							"item": [
+								{
+									"name": "Updates an existing client.",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "multipart/form-data"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "ClientId",
+													"value": "<integer>",
+													"type": "text"
+												},
+												{
+													"key": "Email",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "FirstName",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "LastName",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "PersonalId",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "ProfilePhoto",
+													"type": "file",
+													"src": []
+												},
+												{
+													"key": "MobileNumber",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "Gender",
+													"value": "1",
+													"description": " (This can only be one of 0,1)",
+													"type": "text"
+												},
+												{
+													"key": "CountryId",
+													"value": "<integer>",
+													"type": "text"
+												},
+												{
+													"key": "CityId",
+													"value": "<integer>",
+													"type": "text"
+												},
+												{
+													"key": "Street",
+													"value": "<string>",
+													"type": "text"
+												},
+												{
+													"key": "ZipCode",
+													"value": "<string>",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/clients/update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"clients",
+												"update"
+											]
+										},
+										"description": "This endpoint allows an admin to update the details of an existing client.\r\nThe request must include the client ID and the updated information."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "ClientId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "//api/clients/update",
+													"path": [
+														"",
+														"api",
+														"clients",
+														"update"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"personalId\": \"<string>\",\n  \"profilePhoto\": \"<string>\",\n  \"mobileNumber\": \"<string>\",\n  \"gender\": 1,\n  \"genderStr\": \"<string>\",\n  \"accounts\": [\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"accountNumber\": \"<string>\",\n      \"accountType\": 0,\n      \"accountTypeStr\": \"<string>\",\n      \"balance\": \"<double>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"accountNumber\": \"<string>\",\n      \"accountType\": 9,\n      \"accountTypeStr\": \"<string>\",\n      \"balance\": \"<double>\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"countryId\": \"<integer>\",\n      \"countryName\": \"<string>\",\n      \"cityId\": \"<integer>\",\n      \"cityName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"clientId\": \"<integer>\",\n      \"countryId\": \"<integer>\",\n      \"countryName\": \"<string>\",\n      \"cityId\": \"<integer>\",\n      \"cityName\": \"<string>\",\n      \"street\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "ClientId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"update"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "ClientId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"update"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "ClientId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"update"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "multipart/form-data"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "ClientId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Email",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "FirstName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "LastName",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "PersonalId",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ProfilePhoto",
+															"type": "file",
+															"src": []
+														},
+														{
+															"key": "MobileNumber",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "Gender",
+															"value": "1",
+															"description": " (This can only be one of 0,1)",
+															"type": "text"
+														},
+														{
+															"key": "CountryId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "CityId",
+															"value": "<integer>",
+															"type": "text"
+														},
+														{
+															"key": "Street",
+															"value": "<string>",
+															"type": "text"
+														},
+														{
+															"key": "ZipCode",
+															"value": "<string>",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"update"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"item": [
+								{
+									"name": "{clientId}",
+									"item": [
+										{
+											"name": "Deletes a specific client by ID.",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/clients/delete/:clientId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"clients",
+														"delete",
+														":clientId"
+													],
+													"variable": [
+														{
+															"key": "clientId",
+															"value": "<integer>",
+															"description": "(Required) The ID of the client to delete."
+														}
+													]
+												},
+												"description": "This endpoint allows an admin to delete a specific client based on the provided client ID."
+											},
+											"response": [
+												{
+													"name": "Success",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "//api/clients/delete/:clientId",
+															"path": [
+																"",
+																"api",
+																"clients",
+																"delete",
+																":clientId"
+															],
+															"variable": [
+																{
+																	"key": "clientId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "<string>"
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/clients/delete/:clientId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"clients",
+																"delete",
+																":clientId"
+															],
+															"variable": [
+																{
+																	"key": "clientId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+												},
+												{
+													"name": "Unauthorized",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/clients/delete/:clientId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"clients",
+																"delete",
+																":clientId"
+															],
+															"variable": [
+																{
+																	"key": "clientId"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												},
+												{
+													"name": "Forbidden",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/clients/delete/:clientId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"clients",
+																"delete",
+																":clientId"
+															],
+															"variable": [
+																{
+																	"key": "clientId"
+																}
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												},
+												{
+													"name": "Server Error",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/clients/delete/:clientId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"clients",
+																"delete",
+																":clientId"
+															],
+															"variable": [
+																{
+																	"key": "clientId"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "home",
+					"item": [
+						{
+							"name": "countries",
+							"item": [
+								{
+									"name": "Retrieves a list of all countries.",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/home/countries",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"home",
+												"countries"
+											]
+										},
+										"description": "This endpoint returns a cached list of all available countries."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "//api/home/countries",
+													"path": [
+														"",
+														"api",
+														"home",
+														"countries"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"phonePrefix\": \"<string>\",\n    \"cities\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"countryId\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"countryId\": \"<integer>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"code\": \"<string>\",\n    \"phonePrefix\": \"<string>\",\n    \"cities\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"countryId\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"countryId\": \"<integer>\"\n      }\n    ]\n  }\n]"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/countries",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"countries"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/countries",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"countries"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "search-history",
+							"item": [
+								{
+									"name": "Retrieves the search history for the authenticated hub user.",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/home/search-history",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"home",
+												"search-history"
+											],
+											"query": [
+												{
+													"key": "hubPageKey",
+													"value": "",
+													"description": "Optional hub page key to filter search history.",
+													"disabled": true
+												}
+											]
+										},
+										"description": "This endpoint returns the search history for the authenticated hub user, optionally filtered by a specific hub page."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "//api/home/search-history?hubPageKey=<string>",
+													"path": [
+														"",
+														"api",
+														"home",
+														"search-history"
+													],
+													"query": [
+														{
+															"key": "hubPageKey",
+															"value": "<string>",
+															"description": "Optional hub page key to filter search history."
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"hubPageId\": \"<integer>\",\n    \"hubPageKey\": \"<string>\",\n    \"history\": [\n      {\n        \"id\": \"<integer>\",\n        \"searchQuery\": \"<string>\",\n        \"searchDate\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"searchQuery\": \"<string>\",\n        \"searchDate\": \"<dateTime>\"\n      }\n    ]\n  },\n  {\n    \"hubPageId\": \"<integer>\",\n    \"hubPageKey\": \"<string>\",\n    \"history\": [\n      {\n        \"id\": \"<integer>\",\n        \"searchQuery\": \"<string>\",\n        \"searchDate\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"searchQuery\": \"<string>\",\n        \"searchDate\": \"<dateTime>\"\n      }\n    ]\n  }\n]"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/search-history?hubPageKey=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"search-history"
+													],
+													"query": [
+														{
+															"key": "hubPageKey",
+															"value": "<string>",
+															"description": "Optional hub page key to filter search history."
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/search-history?hubPageKey=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"search-history"
+													],
+													"query": [
+														{
+															"key": "hubPageKey",
+															"value": "<string>",
+															"description": "Optional hub page key to filter search history."
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/search-history?hubPageKey=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"search-history"
+													],
+													"query": [
+														{
+															"key": "hubPageKey",
+															"value": "<string>",
+															"description": "Optional hub page key to filter search history."
+														}
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/search-history?hubPageKey=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"search-history"
+													],
+													"query": [
+														{
+															"key": "hubPageKey",
+															"value": "<string>",
+															"description": "Optional hub page key to filter search history."
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "hub-pages",
+							"item": [
+								{
+									"name": "Retrieves a list of hub pages.",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/home/hub-pages",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"home",
+												"hub-pages"
+											]
+										},
+										"description": "This endpoint returns a list of all available hub pages for the authenticated hub user."
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "//api/home/hub-pages",
+													"path": [
+														"",
+														"api",
+														"home",
+														"hub-pages"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"<integer>\",\n    \"key\": \"<string>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"key\": \"<string>\"\n  }\n]"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/hub-pages",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"hub-pages"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										},
+										{
+											"name": "Unauthorized",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/hub-pages",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"hub-pages"
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/hub-pages",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"hub-pages"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													},
+													{
+														"key": "Authorization",
+														"value": "<API Key>",
+														"description": "Added as a part of security scheme: apikey"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/home/hub-pages",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"home",
+														"hub-pages"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "identity",
+					"item": [
+						{
+							"name": "hub-users",
+							"item": [
+								{
+									"name": "register",
+									"item": [
+										{
+											"name": "Registers a new user for the Hub.",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"anything@email.com\",\n  \"password\": \"very strong password\",\n  \"firstName\": \"Islam\",\n  \"lastName\": \"Mahrous\",\n  \"role\": 0 // admin = 0, hub user = 1\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/identity/hub-users/register",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"identity",
+														"hub-users",
+														"register"
+													]
+												},
+												"description": "This endpoint allows for the registration of a new Hub user by providing necessary details such as email, password, first name, last name, and role."
+											},
+											"response": [
+												{
+													"name": "Successfully registered the user. Returns the user's login details, including a JWT token.",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": 0\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "//api/identity/hub-users/register",
+															"path": [
+																"",
+																"api",
+																"identity",
+																"hub-users",
+																"register"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"userType\": 0,\n  \"token\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"lastModifiedAt\": \"<dateTime>\",\n  \"role\": 1\n}"
+												},
+												{
+													"name": "Registration failed due to validation errors or if the email is already in use.",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": 0\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/identity/hub-users/register",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"identity",
+																"hub-users",
+																"register"
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"validationErrors\": {\n    \"aute_b\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tempor70c\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Ut_6_c\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipsumb70\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}"
+												},
+												{
+													"name": "Server Error",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"role\": 0\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/identity/hub-users/register",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"identity",
+																"hub-users",
+																"register"
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "login",
+									"item": [
+										{
+											"name": "Authenticates a Hub user and returns a JWT token upon successful login.",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"email\": \"admin@fundingsouq.com\",\n  \"password\": \"admin@123\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/identity/hub-users/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"identity",
+														"hub-users",
+														"login"
+													]
+												},
+												"description": "This endpoint verifies the user's credentials (email and password) and issues a JWT token if the login is successful."
+											},
+											"response": [
+												{
+													"name": "Successfully authenticated the user. Returns the user's login details, including a JWT token.",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/identity/hub-users/login",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"identity",
+																"hub-users",
+																"login"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"userType\": 0,\n  \"token\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"lastModifiedAt\": \"<dateTime>\",\n  \"role\": 1\n}"
+												},
+												{
+													"name": "Login failed due to validation errors or incorrect credentials.",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/identity/hub-users/login",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"identity",
+																"hub-users",
+																"login"
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\",\n  \"validationErrors\": {\n    \"aute_b\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tempor70c\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Ut_6_c\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipsumb70\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}"
+												},
+												{
+													"name": "An unexpected error occurred on the server.",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															},
+															{
+																"key": "Authorization",
+																"value": "<API Key>",
+																"description": "Added as a part of security scheme: apikey"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/identity/hub-users/login",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"identity",
+																"hub-users",
+																"login"
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
