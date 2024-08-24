@@ -1,5 +1,4 @@
 using FluentValidation;
-using FundingSouq.Assessment.Core.Enums;
 
 namespace FundingSouq.Assessment.Application.Commands;
 

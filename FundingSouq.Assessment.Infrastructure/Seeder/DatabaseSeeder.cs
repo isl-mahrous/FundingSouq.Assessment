@@ -122,19 +122,15 @@ public class DatabaseSeeder
         // setup bogus to generate random clients
 
         Randomizer.Seed = new Random(8675309);
-
-        var addressId = 1;
+        
         var addresses = new Faker<Address>()
-            .RuleFor(a => a.Id, _ => addressId++)
             .RuleFor(a => a.Street, f => f.Address.StreetAddress())
             .RuleFor(a => a.CityId, _ => 1)
             .RuleFor(a => a.CountryId, _ => 1)
             .RuleFor(a => a.ZipCode, f => f.Address.ZipCode());
 
 
-        var accountId = 1;
         var accounts = new Faker<Account>()
-            .RuleFor(a => a.Id, _ => accountId++)
             .RuleFor(a => a.AccountNumber, f => f.Finance.Account())
             .RuleFor(a => a.AccountType, f => f.PickRandom<BankAccountType>())
             .RuleFor(a => a.Balance, f => f.Finance.Amount());

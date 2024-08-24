@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Text;
 using FluentValidation;
 using FundingSouq.Assessment.Api.Infrastructure;
@@ -6,6 +5,7 @@ using FundingSouq.Assessment.Application.Behaviors;
 using FundingSouq.Assessment.Application.Commands;
 using FundingSouq.Assessment.Application.Services;
 using FundingSouq.Assessment.Application.Validators;
+using FundingSouq.Assessment.Core.Dtos.Common;
 using FundingSouq.Assessment.Core.Enums;
 using FundingSouq.Assessment.Core.Interfaces;
 using FundingSouq.Assessment.Core.Interfaces.Repositories;
@@ -44,17 +44,17 @@ public static class Bootstrapper
         });
         
         // Configure Redis Connection and RedLock Factory
-        builder.Services.AddSingleton<IDistributedLockFactory>(sp =>
+        builder.Services.AddSingleton<IDistributedLockFactory>(_ =>
         {
             var redisConnectionMultiplexer = ConnectionMultiplexer
                 .Connect(builder.Configuration.GetConnectionString("RedisConnection")!);
     
-            var redlockMultiplexer = new List<RedLockMultiplexer>
+            var redLockMultiplexer = new List<RedLockMultiplexer>
             {
                 new(redisConnectionMultiplexer)
             };
 
-            return RedLockFactory.Create(redlockMultiplexer);
+            return RedLockFactory.Create(redLockMultiplexer);
         });
         
         builder.Services.AddOutputCache(options =>
@@ -109,19 +109,23 @@ public static class Bootstrapper
                 };
             });
         
+        builder.Services.Configure<Globals>(builder.Configuration.GetSection("Globals"));
+        
+        
         builder.Services.AddProblemDetails();
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddScoped<IJwtService, JwtService>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+        builder.Services.AddScoped<IFileUploadService, FileUploadService>();
     }
 
     public static void ApplyMigrations(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
         using var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
+        
         dbContext.Database.Migrate();
-
+        
         var seeder = new DatabaseSeeder(dbContext, scope.ServiceProvider.GetRequiredService<IPasswordHasher>());
         seeder.Seed().Wait();
     }

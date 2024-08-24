@@ -1,4 +1,5 @@
 using FundingSouq.Assessment.Api.Infrastructure;
+using FundingSouq.Assessment.Application.Commands;
 using FundingSouq.Assessment.Application.Queries;
 using FundingSouq.Assessment.Core.Dtos;
 using FundingSouq.Assessment.Core.Dtos.Common;
@@ -42,6 +43,16 @@ public class ClientsController : FundingSouqControllerBase
             SortKey = sortKey,
             SortDirection = sortDirection
         });
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+
+    [HttpPost("create")]
+    [ProducesResponseType(typeof(ClientDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> CreateClient([FromForm] CreateClientCommand command)
+    {
+        var result = await _sender.Send(command);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
 }

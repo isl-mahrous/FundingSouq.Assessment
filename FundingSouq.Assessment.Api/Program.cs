@@ -1,6 +1,7 @@
 using FundingSouq.Assessment.Api.Extensions;
 using FundingSouq.Assessment.Api.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -66,6 +67,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseOutputCache();
+
+var filesDirectoryPath = Path.Combine(builder.Environment.ContentRootPath, "files");
+if (!Directory.Exists(filesDirectoryPath))
+{
+    Directory.CreateDirectory(filesDirectoryPath);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    
+    FileProvider = new PhysicalFileProvider(filesDirectoryPath),
+    RequestPath = "/files"
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseExceptionHandler();

@@ -28,12 +28,17 @@
 
     <ItemGroup>
       <None Remove="..\.dockerignore" />
+      <None Remove="files\1724500675_profile-pic (1).png" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="files\" />
     </ItemGroup>
 
 </Project>
