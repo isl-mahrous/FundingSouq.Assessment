@@ -78,9 +78,9 @@ public class ClientsController : FundingSouqControllerBase
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
     
-    [HttpDelete("delete/{clientId}")]
+    [HttpDelete("delete/{clientId:int}")]
     [Authorize(Roles = nameof(HubUserRole.Admin))]
-    [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteClient(int clientId)

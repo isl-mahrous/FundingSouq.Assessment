@@ -20,10 +20,7 @@ public static class ClientErrors
         new Error("MOBILE_NUMBER_IN_USE", "Mobile number is already in use.");
 
     public static readonly Error PersonalIdInUse = new Error("PERSONAL_ID_IN_USE", "Personal ID is already in use.");
-
-    public static readonly Error AccountNumberInUse =
-        new Error("ACCOUNT_NUMBER_IN_USE", "Account number is already in use.");
-
+    
     public static readonly Error ProfilePhotoRequired =
         new Error("PROFILE_PHOTO_REQUIRED", "Profile photo is required.");
 

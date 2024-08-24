@@ -112,7 +112,7 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, R
         if (mobileNumberExists) return ClientErrors.MobileNumberInUse;
 
         var accountNumberExists = await _unitOfWork.Accounts.ExistsAsync(i => i.AccountNumber == request.AccountNumber);
-        if (accountNumberExists) return ClientErrors.AccountNumberInUse;
+        if (accountNumberExists) return AccountErrors.AccountNumberExists;
 
         var cityExists = await _unitOfWork.Cities.ExistsAsync(i => i.Id == request.CityId);
         if (!cityExists) return ClientErrors.CityNotFound;

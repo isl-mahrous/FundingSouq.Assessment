@@ -43,4 +43,15 @@ public class HomeController : FundingSouqControllerBase
             { HubUserId = GetUserId(), HubPageKey = hubPageKey });
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
+    
+    [HttpGet("hub-pages")]
+    [Authorize(Policy = nameof(UserType.HubUser))]
+    [ProducesResponseType(typeof(List<HubPageDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetHubPages()
+    {
+        var result = await _sender.Send(new HubPagesQuery());
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
 }

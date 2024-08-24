@@ -13,3 +13,9 @@ public class HubPageHistoryDto
     public string SearchQuery { get; set; }
     public DateTime SearchDate { get; set; }
 }
+
+public class HubPageDto
+{
+    public int Id { get; set; }
+    public string Key { get; set; }
+}
