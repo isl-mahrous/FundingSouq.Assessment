@@ -7,7 +7,22 @@ This repository contains a simple banking control panel API built with ASP.NET C
 
 ### Running the Project
 
-The easiest way to run the project is via Docker Compose. Follow these steps:
+The easiest way to run the project is via dotnet run command as follows:
+
+1. **Clone the Repository:**
+   ```bash
+    git clone https://github.com/isl-mahrous/FundingSouq.Assessment
+    cd FundingSouq.Assessment
+    ```
+2. **Run the Project:** 
+   ```bash
+   dotnet run --project FundingSouq.Assessment.Api
+    ```
+3. **Accessing the API:** 
+   Once the application is running, you can access the API at `http://localhost:5257`. The Swagger UI is available at `http://localhost:5257`.
+
+
+### To run it with Docker Compose. Follow these steps:
 
 1. **Clone the Repository:**
    ```bash
@@ -15,7 +30,10 @@ The easiest way to run the project is via Docker Compose. Follow these steps:
    cd FundingSouq.Assessment
    ```
 
-2. **Build and Run the Project:**
+2. **Set Environment Variables:**
+    simply go to `appsettings.json` and un-comment the connection strings for both postgres and redis docker instances.
+
+3. **Build and Run the Project:**
    Ensure Docker and Docker Compose are installed on your machine. Then run:
    ```bash
    docker-compose up --build
