@@ -70,19 +70,19 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    // Enable Swagger in development environment
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FundingSouq.Assessment.Api v1");
-        c.DocumentTitle = "FundingSouq.Assessment.Api Documentation";
-        c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
-    });
-
     // Apply any pending migrations to the database during development
     app.ApplyMigrations();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "FundingSouq.Assessment.Api v1");
+    c.DocumentTitle = "FundingSouq.Assessment.Api Documentation";
+    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+});
+
 
 // Enable HTTPS redirection
 app.UseHttpsRedirection();
