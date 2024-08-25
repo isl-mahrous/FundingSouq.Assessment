@@ -3,6 +3,8 @@
 
 This repository contains a simple banking control panel API built with ASP.NET Core. The API is designed to manage client data, handle user registration and authentication, and provide a range of admin functionalities. This project is structured using Clean Architecture principles, following the CQRS pattern, and leveraging a variety of modern tools and technologies to ensure scalability, security, and maintainability.
 
+The api is hosted on this route: [Funding Souq Assessment](http://funding-souq-assessment.runasp.net/index.html). However, you can clone the repository and follow the Getting Started guide below. 
+
 ## Getting Started
 
 ### Running the Project
