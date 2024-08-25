@@ -114,5 +114,5 @@ Use these credentials to obtain a token and interact with protected endpoints.
 ## Usage
 
 Once the application is running, you can explore the API using Swagger UI at `http://localhost:5000`. The Swagger documentation provides detailed information about each endpoint, including the request and response formats, required parameters, and authentication methods. 
-If you're more into Postman, I prepared a collection for you here: [Postman Collection](https://api.postman.com/collections/30829199-d34c5a2e-b6a4-43cf-bc26-8f17d19a48c2?access_key=PMAT-01J62V3H4K9Z6NH937YTM6B0JS)
+If you're more into Postman, I prepared a collection for you here: [Postman Collection](https://github.com/isl-mahrous/FundingSouq.Assessment/blob/master/postman_collection.json)
 
